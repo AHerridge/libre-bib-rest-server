@@ -1,13 +1,17 @@
 package com.aherridge.librebib.server.book;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-
-import java.util.Optional;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.Optional;
+
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RepositoryRestController
 public class BookController {
@@ -31,5 +35,15 @@ public class BookController {
     }
 
     return book;
+  }
+
+  @RequestMapping(method = GET, value = "/books/search/findAllByTitle/{title}")
+  @ResponseBody
+  public Collection<Book> findAllByTitle(@PathVariable("title") String title) {
+    Collection<Book> books = new LinkedList<>(bookRepository.findAllByTitle(title));
+    books.addAll(googleBooksService.findAllByTitle(title));
+
+    LoggerFactory.getLogger(this.getClass()).error(books.toString());
+    return books;
   }
 }

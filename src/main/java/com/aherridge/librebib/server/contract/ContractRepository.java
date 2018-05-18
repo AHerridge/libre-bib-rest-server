@@ -5,11 +5,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
+
 @Repository
 @RepositoryRestResource(collectionResourceRel = "contracts", path = "contracts")
 public interface ContractRepository extends PagingAndSortingRepository<Contract, String> {
 
-  Iterable<Contract> findByUserId(@Param("userId") String userId);
+  Collection<Contract> findAllByUserId(@Param("userId") String userId);
 
-  Iterable<Contract> findByBookId(@Param("bookId") String bookId);
+  Collection<Contract> findAllByBookId(@Param("bookId") String bookId);
 }

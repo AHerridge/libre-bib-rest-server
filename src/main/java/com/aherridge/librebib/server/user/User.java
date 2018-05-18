@@ -1,10 +1,11 @@
 package com.aherridge.librebib.server.user;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Data
 @Entity
@@ -12,8 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class User {
 
-  @Id
-  private String id;
+  @Id private String id;
 
   private String firstName;
 
